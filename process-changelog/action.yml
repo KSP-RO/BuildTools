@@ -15,7 +15,7 @@ runs:
   steps:
     - name: check out this repo
       uses: actions/checkout@v2
-      path: BuildTools
+      path: ./BuildTools/
 
     - name: Setup python
       uses: actions/setup-python@v2
