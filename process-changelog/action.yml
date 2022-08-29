@@ -16,7 +16,6 @@ runs:
     - name: check out this repo
       uses: actions/checkout@v2
         with:
-          repository: StonesmileGit/BuildTools
           path: BuildTools
 
     - name: Setup python
