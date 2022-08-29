@@ -13,11 +13,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: check out this repo
+      uses: actions/checkout@v2
+        with:
+          repository: StonesmileGit/BuildTools
+          path: BuildTools
+
     - name: Setup python
       uses: actions/setup-python@v2
       with:
         python-version: 3.0
 
     - name: Make metadata
-      run: python processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
+      run: python ${GITHUB_WORKSPACE}/BuildTools/processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
       shell: bash
