@@ -4,7 +4,7 @@ inputs:
   path:
     description: 'path to readme'
     required: true
-  version:
+  tag:
     description: 'tag of release'
     required: true
   body:
@@ -25,5 +25,5 @@ runs:
         python-version: 3.0
 
     - name: Make metadata
-      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
+      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} ${{ inputs.body }} ${{ inputs.path }}
       shell: bash
