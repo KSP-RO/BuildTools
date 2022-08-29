@@ -19,5 +19,5 @@ runs:
         python-version: 3.0
 
     - name: Make metadata
-      run: |
-        python processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
+      run: python processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
+      shell: bash
