@@ -14,8 +14,10 @@ runs:
   using: "composite"
   steps:
     - name: check out this repo
-      uses: actions/checkout@v2
-      path: ./BuildTools/
+      uses: actions/checkout@v3
+      with:
+        repository: StonesmileGit/BuildTools
+        path: ./BuildTools/
 
     - name: Setup python
       uses: actions/setup-python@v2
