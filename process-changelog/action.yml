@@ -1,0 +1,23 @@
+name: 'Update kerbalChangelog'
+description: 'Update kerbalChangelog'
+inputs:
+  path:
+    description: 'path to readme'
+    required: true
+  version:
+    description: 'tag of release'
+    required: true
+  body:
+    description: 'body of release'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.0
+
+    - name: Make metadata
+      run: |
+        python processChangeLog.py ${{ inputs.version }} ${{ inputs.body }} ${{ inputs.path }}
