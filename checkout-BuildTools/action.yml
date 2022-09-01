@@ -1,0 +1,10 @@
+name: 'Checkout BuildTools'
+description: 'Checks out the BuildTools repo to the calling repo'
+runs:
+  using: "composite"
+  steps:
+    - name: check out this repo
+      uses: actions/checkout@v3
+      with:
+        repository: StonesmileGit/BuildTools
+        path: ${GITHUB_WORKSPACE}/BuildTools

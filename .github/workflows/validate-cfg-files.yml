@@ -1,0 +1,35 @@
+name: Check Secret
+
+on:
+  workflow_call:
+    inputs:
+      blacklist_path:
+
+jobs:
+  validate-cfg:
+    name: Validate Cfg-files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: check out BuildTools
+        uses: StonesmileGit/BuildTools/checkout-BuildTools
+
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.0
+
+      - name: disable blacklisted files
+        shell: bash
+        run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/blacklistFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }} --disable
+
+      - name: Validate config files
+        uses: KSP-CKAN/KSPMMCfgParser@master
+
+      - name: enable blacklisted files
+        shell: bash
+        run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/blacklistFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }} --enable
