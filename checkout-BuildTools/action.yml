@@ -7,4 +7,4 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: StonesmileGit/BuildTools
-        path: ${GITHUB_WORKSPACE}/BuildTools
+        path: BuildTools
