@@ -4,6 +4,7 @@ on:
   workflow_call:
     inputs:
       blacklist_path:
+        type: string
         required: False
 
 jobs:
