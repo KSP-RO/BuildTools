@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 1
 
       - name: check out BuildTools
-        uses: StonesmileGit/BuildTools/checkout-BuildTools
+        uses: StonesmileGit/BuildTools/checkout-BuildTools@main
 
       - name: Setup python
         uses: actions/setup-python@v2
