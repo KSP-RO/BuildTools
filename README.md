@@ -48,3 +48,15 @@ with:
   # Required: true
   path: ''
 ```
+### update-assembly-info
+Uses bash to replace placeholder `@version@` in assemblyInfo file
+```yml
+uses: StonesmileGit/BuildTools/update-assembly-info@main
+with:
+  # Path to assemblyInfo
+  # Required: true
+  path: ''
+  # Tag of the release, must be greater than last release and use semVer [major.minor.patch.build]
+  # Required: true
+  tag: ''
+```
