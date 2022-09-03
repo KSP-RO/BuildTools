@@ -1,0 +1,23 @@
+name: 'Update Readme Version'
+description: 'Update readme version using regex'
+inputs:
+  path:
+    description: 'path to readme'
+    required: true
+  tag:
+    description: 'tag of release'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: check out BuildTools
+      uses: StonesmileGit/BuildTools/checkout-BuildTools@main
+
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.0
+
+    - name: Update readme
+      shell: bash
+      run: python ${GITHUB_WORKSPACE}/BuildTools/update-version-in-readme/updateVersion.py ${{ inputs.tag }} ${{ inputs.path }}

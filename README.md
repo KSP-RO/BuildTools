@@ -60,3 +60,15 @@ with:
   # Required: true
   tag: ''
 ```
+### update-version-in-readme
+Replaces `compare/version...master` with `compare/new_version...master` in readme
+```yml
+uses: StonesmileGit/BuildTools/update-version-in-readme@main
+with:
+  # Path to readme
+  # Required: true
+  path: ''
+  # Tag of the release uses semVer [major.minor.patch.build]
+  # Required: true
+  tag: ''
+```
