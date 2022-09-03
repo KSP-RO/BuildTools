@@ -5,6 +5,13 @@ This repository contains [reusable workflows](https://docs.github.com/en/actions
 Reusable workflows are stored in the [.github/workflows](https://github.com/StonesmileGit/BuildTools/tree/main/.github/workflows) folder. These are used at the `jobs` level.
 ### check-secret.yml
 Checks if the password for the assemblies needed to build the mods is present
+
+To use the relust of this job in another job, use this snippet at the top of that job:
+```yml
+needs: [check-secret] # name of the job using this workflow
+if: needs.check-secret.outputs.has-password == 'true'
+```
+
 ```yml
 uses: StonesmileGit/BuildTools/.github/workflows/check-secret.yml@main
 secrets:
