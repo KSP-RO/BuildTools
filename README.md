@@ -56,7 +56,7 @@ with:
   # Path to assemblyInfo
   # Required: true
   path: ''
-  # Tag of the release, must be greater than last release and use semVer [major.minor.patch.build]
+  # Tag of the release uses semVer [major.minor.patch.build]
   # Required: true
   tag: ''
 ```
