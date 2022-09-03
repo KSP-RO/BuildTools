@@ -26,6 +26,8 @@ jobs:
           python-version: 3.0
 
       - name: disable blacklisted files
+        # check if path is defined
+        if: "${{ github.event.inputs.blacklist_path != '' }}"
         shell: bash
         run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/disableFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }}
 
