@@ -2,7 +2,7 @@
 This repository contains [reusable workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows) and [composite actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) referenced in other KSP-RO projects.
 
 ## Reusable workflows
-Reusable workflows are stored in the [.github/workflows]() folder. These are used at the `jobs` level.
+Reusable workflows are stored in the [.github/workflows](https://github.com/StonesmileGit/BuildTools/tree/main/.github/workflows) folder. These are used at the `jobs` level.
 ### check-secret.yml
 Checks if the password for the assemblies needed to build the mods is present
 ```yml
