@@ -27,11 +27,7 @@ jobs:
 
       - name: disable blacklisted files
         shell: bash
-        run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/blacklistFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }} --disable
+        run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/disableFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }}
 
       - name: Validate config files
         uses: KSP-CKAN/KSPMMCfgParser@master
-
-      - name: enable blacklisted files
-        shell: bash
-        run: python ${GITHUB_WORKSPACE}/BuildTools/.github/workflows/blacklistFiles.py ${GITHUB_WORKSPACE} ${{ inputs.blacklist_path }} --enable
