@@ -13,17 +13,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: check out this repo
-      uses: actions/checkout@v3
-      with:
-        repository: StonesmileGit/BuildTools
-        path: ./BuildTools/
+    - name: check out BuildTools
+      uses: StonesmileGit/BuildTools/checkout-BuildTools
 
     - name: Setup python
       uses: actions/setup-python@v2
       with:
         python-version: 3.0
 
-    - name: Make metadata
-      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "${{ inputs.body }}" ${{ inputs.path }}
+    - name: Process changelog
       shell: bash
+      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "${{ inputs.body }}" ${{ inputs.path }}
