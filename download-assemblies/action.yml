@@ -1,0 +1,21 @@
+name: 'Download Assmeblies'
+description: 'Download required assemblies'
+inputs:
+  KSP_ZIP_PASSWORD:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download required assemblies
+      id: download-assemblies
+      shell: bash
+      env: 
+        KSP_ZIP_PASSWORD: ${{ inputs.KSP_ZIP_PASSWORD }}
+      run: |
+        curl https://ksp-ro.s3-us-west-2.amazonaws.com/KSPAssemblies-1.12.zip --output /tmp/bins.zip
+        KSP_DLL_PATH="/opt/ksp/assembly"
+        echo "::set-output name=ksp-dll-path::${KSP_DLL_PATH}"
+        mkdir -p "${KSP_DLL_PATH}"
+        unzip -P "${KSP_ZIP_PASSWORD}" '/tmp/bins.zip' -d "${KSP_DLL_PATH}"
+        rm '/tmp/bins.zip'
