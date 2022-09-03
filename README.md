@@ -6,7 +6,7 @@ Reusable workflows are stored in the [.github/workflows](https://github.com/Ston
 ### check-secret.yml
 Checks if the password for the assemblies needed to build the mods is present
 
-To use the relust of this job in another job, use this snippet at the top of that job:
+To use the result of this job in another job, use this snippet at the top of that job:
 ```yml
 needs: [check-secret] # name of the job using this workflow
 if: needs.check-secret.outputs.has-password == 'true'
