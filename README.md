@@ -79,3 +79,15 @@ with:
   # Required: true
   tag: ''
 ```
+### update-version-file
+Replaces the version in the `.version` file, both in the version node and links
+```yml
+uses: StonesmileGit/BuildTools/update-version-file@main
+with:
+  # Path to readme
+  # Required: true
+  path: ''
+  # Tag of the release uses semVer [major.minor.patch.build]
+  # Required: true
+  tag: ''
+```

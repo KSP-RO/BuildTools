@@ -1,0 +1,23 @@
+name: 'Update Version File'
+description: 'Update version file using regex'
+inputs:
+  path:
+    description: 'path to .version file'
+    required: true
+  tag:
+    description: 'tag of release'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: check out BuildTools
+      uses: StonesmileGit/BuildTools/checkout-BuildTools@main
+
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.0
+
+    - name: Update readme
+      shell: bash
+      run: python ${GITHUB_WORKSPACE}/BuildTools/update-version-file/makeMeta.py ${{ inputs.tag }} ${{ inputs.path }}
