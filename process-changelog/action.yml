@@ -14,7 +14,7 @@ runs:
   using: "composite"
   steps:
     - name: check out BuildTools
-      uses: StonesmileGit/BuildTools/checkout-BuildTools
+      uses: KSP-RO/BuildTools/checkout-BuildTools
 
     - name: Setup python
       uses: actions/setup-python@v2

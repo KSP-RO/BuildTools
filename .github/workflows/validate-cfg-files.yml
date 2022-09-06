@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 1
 
       - name: check out BuildTools
-        uses: StonesmileGit/BuildTools/checkout-BuildTools@main
+        uses: KSP-RO/BuildTools/checkout-BuildTools@master
 
       - name: Setup python
         uses: actions/setup-python@v2
