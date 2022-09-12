@@ -3,6 +3,9 @@ description: 'Download required assemblies'
 inputs:
   KSP_ZIP_PASSWORD:
     required: true
+outputs:
+  ksp-dll-path:
+    value: ${{ steps.download-assemblies.outputs.ksp-dll-path }}
 
 runs:
   using: "composite"
