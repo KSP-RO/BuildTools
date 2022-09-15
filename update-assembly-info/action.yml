@@ -12,6 +12,7 @@ runs:
   using: "composite"
   steps:
     - name: update assemblyInfo
+        shell: bash
         env:
           TAG_STRING: ${{ inputs.tag }}
         run: |
