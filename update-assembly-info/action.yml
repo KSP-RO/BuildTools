@@ -12,25 +12,25 @@ runs:
   using: "composite"
   steps:
     - name: update assemblyInfo
-        shell: bash
-        env:
-          TAG_STRING: ${{ inputs.tag }}
-        run: |
-          VFULL="$(echo $TAG_STRING | sed -e s/v//)"
-          VMAJOR="$(echo $VFULL | cut -f 1 -d '.')"
-          VMINOR="$(echo $VFULL | cut -f 2 -d '.')"
-          VPATCH="$(echo $VFULL | cut -f 3 -d '.')"
-          VBUILD="$(echo $VFULL | cut -f 4 -d '.')"
+      shell: bash
+      env:
+        TAG_STRING: ${{ inputs.tag }}
+      run: |
+        VFULL="$(echo $TAG_STRING | sed -e s/v//)"
+        VMAJOR="$(echo $VFULL | cut -f 1 -d '.')"
+        VMINOR="$(echo $VFULL | cut -f 2 -d '.')"
+        VPATCH="$(echo $VFULL | cut -f 3 -d '.')"
+        VBUILD="$(echo $VFULL | cut -f 4 -d '.')"
 
-          echo "Version string: $TAG_STRING"
-          echo "Version is $VMAJOR dot $VMINOR dot $VPATCH dot $VBUILD"
-          sed \
-            -e "s/CIBUILD_disabled/CIBUILD/" \
-            -e "s/@MAJOR@/$VMAJOR/" \
-            -e "s/@MINOR@/$VMINOR/" \
-            -e "s/@PATCH@/$VPATCH/" \
-            -e "s/@BUILD@/$VBUILD/" \
-            -i ${{ inputs.path }}
+        echo "Version string: $TAG_STRING"
+        echo "Version is $VMAJOR dot $VMINOR dot $VPATCH dot $VBUILD"
+        sed \
+          -e "s/CIBUILD_disabled/CIBUILD/" \
+          -e "s/@MAJOR@/$VMAJOR/" \
+          -e "s/@MINOR@/$VMINOR/" \
+          -e "s/@PATCH@/$VPATCH/" \
+          -e "s/@BUILD@/$VBUILD/" \
+          -i ${{ inputs.path }}
 
-          grep CIBUILD ${{ inputs.path }}
-          grep AssemblyFileVersion ${{ inputs.path }}
+        grep CIBUILD ${{ inputs.path }}
+        grep AssemblyFileVersion ${{ inputs.path }}
