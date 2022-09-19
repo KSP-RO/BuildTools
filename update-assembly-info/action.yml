@@ -7,6 +7,9 @@ inputs:
   tag:
     description: 'tag of release'
     required: true
+  informational-version:
+    description: 'text to put in the AssemblyInformationalVersion'
+    required: false
 
 runs:
   using: "composite"
@@ -21,6 +24,7 @@ runs:
         VMINOR="$(echo $VFULL | cut -f 2 -d '.')"
         VPATCH="$(echo $VFULL | cut -f 3 -d '.')"
         VBUILD="$(echo $VFULL | cut -f 4 -d '.')"
+        ASSEMBLYINFORMATIONALVERSION="${{ inputs.informational-version}}"
 
         echo "Version string: $TAG_STRING"
         echo "Version is $VMAJOR dot $VMINOR dot $VPATCH dot $VBUILD"
@@ -31,6 +35,10 @@ runs:
           -e "s/@PATCH@/$VPATCH/" \
           -e "s/@BUILD@/$VBUILD/" \
           -i ${{ inputs.path }}
+        [ -n "$ASSEMBLYINFORMATIONALVERSION" ] && \
+          sed \
+            -e "s/@ASSEMBLYINFORMATIONALVERSION@/$ASSEMBLYINFORMATIONALVERSION/" \
+            -i ${{ inputs.path }}
 
         grep CIBUILD ${{ inputs.path }}
         grep AssemblyFileVersion ${{ inputs.path }}
