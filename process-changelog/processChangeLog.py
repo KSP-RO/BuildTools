@@ -50,7 +50,12 @@ def remove_author(item):
 
 	return trimmed_item
 
+def remove_links(item):
+	# turns '[text](link)' into 'text'
+	return re.sub(r"\[(.*)\]\((\bhttps[^\s]*[^[.,\s]]*)\)", r"\1", item)
+
 def create_subChange_from_item(item):
+	item = remove_links(item)
 	actual_item = remove_author(item)
 	output = ""
 	nr_tabs = 3
