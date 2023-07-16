@@ -24,6 +24,7 @@ runs:
     - name: Process changelog
       shell: bash
       run: |
+        echo ${{ inputs.body }}
         body='${{ inputs.body }}'
         echo "$body"
         subst="${body//\"/\'\'}"
