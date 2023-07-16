@@ -1,0 +1,57 @@
+name: Check MM
+
+on:
+  workflow_call:
+    inputs:
+      left:
+        type: string
+        required: true
+      right:
+        type: string
+        required: true
+
+jobs:
+  check-mm:
+    name: Check MM for notable changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 'left' to compare against
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.left }}
+          fetch-depth: 1
+
+      - name: Get existing MM passes
+        shell: bash
+        run: |
+          left_before_names=$(grep -Poh "(?<=:BEFORE\[)([^]]*)(?=\])" . -r | sort | uniq)
+          left_for_names=$(grep -Poh "(?<=:FOR\[)([^]]*)(?=\])" . -r | sort | uniq)
+          left_after_names=$(grep -Poh "(?<=:AFTER\[)([^]]*)(?=\])" . -r | sort | uniq)
+
+          echo "left-before-names=${left_before_names}" >> $GITHUB_ENV
+          echo "left-for-names=${left_for_names}" >> $GITHUB_ENV
+          echo "left-after-names=${left_after_names}" >> $GITHUB_ENV
+
+      - name: Checkout 'right' to compare against
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.right }}
+          fetch-depth: 1
+
+      - name: Get new MM passes
+        shell: bash
+        run: |
+          right_before_names=$(grep -Poh "(?<=:BEFORE\[)([^]]*)(?=\])" . -r | sort | uniq)
+          right_for_names=$(grep -Poh "(?<=:FOR\[)([^]]*)(?=\])" . -r | sort | uniq)
+          right_after_names=$(grep -Poh "(?<=:AFTER\[)([^]]*)(?=\])" . -r | sort | uniq)
+
+          echo "right-before-names=${right_before_names}" >> $GITHUB_ENV
+          echo "right-for-names=${right_for_names}" >> $GITHUB_ENV
+          echo "right-after-names=${right_after_names}" >> $GITHUB_ENV
+
+      - name: Compare passes
+        shell: bash
+        run: |
+          before_new=$(diff <(echo "${{env.left-before-names}}") <(echo "${{env.right-before-names}}") | grep -Po "(?<=> ).*")
+          for_new=$(diff <(echo "${{env.left-for-names}}") <(echo "${{env.right-for-names}}") | grep -Po "(?<=> ).*")
+          after_new=$(diff <(echo "${{env.left-after-names}}") <(echo "${{env.right-after-names}}") | grep -Po "(?<=> ).*")
