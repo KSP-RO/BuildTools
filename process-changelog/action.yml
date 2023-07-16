@@ -23,4 +23,10 @@ runs:
 
     - name: Process changelog
       shell: bash
-      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "${{ inputs.body }}" ${{ inputs.path }}
+      run: |
+        body=$(cat <<IfYouPutThisAsALineYouAreStupid
+        ${{ inputs.body }}
+        IfYouPutThisAsALineYouAreStupid
+        )
+        echo "$body"
+        python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "$body" ${{ inputs.path }}
