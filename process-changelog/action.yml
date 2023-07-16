@@ -24,9 +24,9 @@ runs:
     - name: Process changelog
       shell: bash
       run: |
-        body=$(cat <<EOF
+        body=$(cat <<IfYouPutThisAsALineYouAreStupid
         ${{ inputs.body }}
-        EOF
+        IfYouPutThisAsALineYouAreStupid
         )
         echo "$body"
         python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "$body" ${{ inputs.path }}
