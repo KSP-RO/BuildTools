@@ -24,7 +24,9 @@ runs:
     - name: substitute quotes
       shell: bash
       run: |
-        echo "subst_body=$(${{ inputs.body }} | tr '"' "''")" >> $GITHUB_ENV
+        subst="${${{ inputs.body }}//\"/\'\'}"
+        echo $subst
+        echo "subst_body=$subst" >> $GITHUB_ENV
 
     - name: Process changelog
       shell: bash
