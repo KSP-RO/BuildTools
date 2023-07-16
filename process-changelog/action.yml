@@ -21,14 +21,9 @@ runs:
       with:
         python-version: 3.0
 
-    - name: substitute quotes
+    - name: Process changelog
       shell: bash
       run: |
         body="${{ inputs.body }}"
         subst="${body//\"/\'\'}"
-        echo "$subst"
-        echo "subst_body=$subst" >> $GITHUB_ENV
-
-    - name: Process changelog
-      shell: bash
-      run: python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "${{ env.subst_body }}" ${{ inputs.path }}
+        python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "$subst" ${{ inputs.path }}
