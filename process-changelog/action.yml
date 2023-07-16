@@ -25,7 +25,7 @@ runs:
       shell: bash
       run: |
         body=$(cat <<EOF
-        ${{ inputs.body }}'
+        ${{ inputs.body }}
         EOF
         )
         echo "$body"
