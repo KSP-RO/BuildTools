@@ -25,5 +25,7 @@ runs:
       shell: bash
       run: |
         body="${{ inputs.body }}"
+        echo "$body"
         subst="${body//\"/\'\'}"
+        echo "$subst"
         python ${GITHUB_WORKSPACE}/BuildTools/process-changelog/processChangeLog.py ${{ inputs.tag }} "$subst" ${{ inputs.path }}
