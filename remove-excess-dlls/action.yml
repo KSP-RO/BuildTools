@@ -8,8 +8,10 @@ runs:
   using: "composite"
   steps:
     - name: delete dlls
-      shell: bash
+      shell: bash {0}
       run: |
         find ${{ inputs.path }} "System.dll" -type f -delete
         find ${{ inputs.path }} "System.Xml.dll" -type f -delete
         find ${{ inputs.path }} "System.Core.dll" -type f -delete
+        # purely so last exit code is 0
+        ls
