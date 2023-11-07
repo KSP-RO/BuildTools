@@ -1,0 +1,15 @@
+name: 'Remove excess DLLs'
+description: 'MSBuild has a bug where private/non-copylocal DLLs get copied anyway. This deletes the ones we've found.'
+inputs:
+  path:
+    description: 'path to DLL files'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: delete dlls
+      shell: bash
+      run: |
+        find ${{ inputs.path }} 'System.dll' -type f -delete
+        find ${{ inputs.path }} 'System.Xml.dll' -type f -delete
+        find ${{ inputs.path }} 'System.Core.dll' -type f -delete
