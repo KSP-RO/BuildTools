@@ -40,6 +40,18 @@ with:
   # Required: true
   KSP_ZIP_PASSWORD: ''
 ```
+### download-assemblies-v2
+Downloads assemblies for the build process using CKAN
+```yml
+uses: KSP-RO/BuildTools/download-assemblies-v2@master
+with:
+  # Github secret with password to the zip with KSP assemblies
+  # Required: true
+  KSP_ZIP_PASSWORD: ''
+  # List of mods to install using CKAN
+  # type: string
+  dependency-identifiers:
+```
 ### process-changelog
 Creates a kerbalConfig node from the release notes and pre-pends that to an existing config file
 ```yml

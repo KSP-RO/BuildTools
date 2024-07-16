@@ -19,7 +19,7 @@ runs:
     - name: Setup python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.0
+        python-version: 3
 
     - name: Process changelog
       shell: bash

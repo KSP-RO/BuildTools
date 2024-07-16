@@ -1,0 +1,37 @@
+name: 'Download Assmeblies'
+description: 'Download required assemblies'
+inputs:
+  KSP_ZIP_PASSWORD:
+    required: true
+  dependency-identifiers:
+    type: string
+outputs:
+  ksp-dll-path:
+    value: ${{ steps.download-assemblies.outputs.ksp-dll-path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Dependencies
+      if: inputs.dependency-identifiers != ''
+      uses: KSPModdingLibs/KSPBuildTools/.github/actions/install-dependencies@main
+      with:
+        dependency-identifiers: ${{ inputs.dependency-identifiers }}
+
+    # This repo contains KSP dlls and extra custom dlls
+    - name: check out libs repo
+      uses: actions/checkout@v4
+      with:
+        repository: KSP-RO/BuildLibs
+        path: BuildLibs
+
+    - name: unzip KSP libs
+      shell: bash
+      run: |
+        unzip -P "${{ inputs.KSP_ZIP_PASSWORD }}" '${{ github.workspace }}/BuildLibs/KSP_x64_Data.zip' -d "${{ env.KSP_ROOT }}"
+        KSP_DLL_PATH="${{ github.workspace }}/BuildLibs/ExtraLibs"
+        echo "ksp-dll-path=${KSP_DLL_PATH}" >> $GITHUB_OUTPUT
+
+      # Now all files should be in the correct locations:
+      #   KSP dlls and CKAN dlls in ${{ env.KSP_ROOT }}/[GameData|KSP_x64_Data]
+      #   Extra dlls in ${GITHUB_WORKSPACE}/BuildLibs/ExtraLibs
