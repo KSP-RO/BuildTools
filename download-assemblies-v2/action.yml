@@ -28,8 +28,7 @@ runs:
     - name: unzip KSP libs
       shell: bash
       run: |
-        KSP_DLL_PATH="${{ github.workspace }}/BuildLibs/ExtraLibs"
-        echo "ksp-dll-path=${KSP_DLL_PATH}" >> $GITHUB_OUTPUT
+        echo "ksp-dll-path=${{ github.workspace }}/BuildLibs/ExtraLibs" >> $GITHUB_OUTPUT
         unzip -P "${{ inputs.KSP_ZIP_PASSWORD }}" '${{ github.workspace }}/BuildLibs/KSP_x64_Data.zip' -d "${{ env.KSP_ROOT }}"
 
       # Now all files should be in the correct locations:
