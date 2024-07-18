@@ -7,7 +7,7 @@ inputs:
     type: string
 outputs:
   ksp-dll-path:
-    value: ${{ steps.download-assemblies.outputs.ksp-dll-path }}
+    value: ${{ steps.unzip-libs.outputs.ksp-dll-path }}
 
 runs:
   using: "composite"
@@ -26,6 +26,7 @@ runs:
         path: BuildLibs
 
     - name: unzip KSP libs
+      id: unzip-libs
       shell: bash
       run: |
         echo "ksp-dll-path=${{ github.workspace }}/BuildLibs/ExtraLibs" >> $GITHUB_OUTPUT
