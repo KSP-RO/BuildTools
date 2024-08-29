@@ -20,7 +20,7 @@ runs:
       if: ${{ inputs.dependency-identifiers }}
       uses: KSPModdingLibs/KSPBuildTools/.github/actions/install-dependencies@main
       with:
-        dependency-identifiers: ${{ inputs.dependency-identifiers }}
+        dependency-identifiers: "${{ inputs.dependency-identifiers }}"
 
     # This repo contains KSP dlls and extra custom dlls
     - name: check out libs repo
