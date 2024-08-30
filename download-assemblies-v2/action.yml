@@ -14,11 +14,11 @@ runs:
   steps:
     - name: Install CKAN
       if: ${{ inputs.dependency-identifiers }}
-      uses: KSPModdingLibs/KSPBuildTools/.github/actions/setup-ckan@main
+      uses: KSPModdingLibs/KSPBuildTools/.github/actions/setup-ckan@2135acc95e3a2ecc021dbedfdb0f41066b066b4e
 
     - name: Install Dependencies
       if: ${{ inputs.dependency-identifiers }}
-      uses: KSPModdingLibs/KSPBuildTools/.github/actions/install-dependencies@main
+      uses: KSPModdingLibs/KSPBuildTools/.github/actions/install-dependencies@2135acc95e3a2ecc021dbedfdb0f41066b066b4e
       with:
         dependency-identifiers: "${{ inputs.dependency-identifiers }}"
 
