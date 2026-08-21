@@ -26,19 +26,25 @@ version = args.tag[0]
 path = args.path[0]
 
 if version.startswith('v'):
-    version = version.split('v')[1]
+    version = version[1:]
 
-major = int(version.split(".")[0])
-minor = int(version.split(".")[1])
-patch = int(version.split(".")[2])
-build = int(version.split(".")[3])
+# Trailing components are optional, e.g. both 1.2 and 1.2.3.4 are accepted
+match = re.match(r"^(\d+)\.(\d+)(?:\.(\d+))?(?:\.(\d+))?$", version)
+if not match:
+    print("ERROR: git tag must be in the format major.minor[.patch[.build]] e.g. 0.4.6.0")
+    sys.exit(2)
+
+major, minor, patch, build = (int(part) if part is not None else 0 for part in match.groups())
+# Links point at the release named after the tag, so keep the tag's own component count
+tag_version = ".".join(part for part in match.groups() if part is not None)
+
 # regex replace in AVC .version file
 new_version = []
 in_version = False
 with open(path, "r") as f:
     for line in f.readlines():
         # Replace version in links
-        line = re.sub(r"v\d+.\d+.\d+.\d+", f"v{major}.{minor}.{patch}.{build}", line)
+        line = re.sub(r"v\d+\.\d+(?:\.\d+){0,2}", f"v{tag_version}", line)
         if "\"VERSION\"" in line:
             in_version = True
         if "}" in line:

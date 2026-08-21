@@ -112,14 +112,24 @@ def create_version(version, body):
 	output += "\n"+nr_tabs*"\t"+"}"
 	return output
 
+def version_parts(version):
+	"""
+	splits a version into 4 numbers, padding missing trailing components with zeros
+	e.g. "1.2" -> [1, 2, 0, 0]
+	"""
+	parts = [int(part) for part in version.strip().split(".")]
+	return (parts + [0, 0, 0, 0])[:4]
+
 def compare_versions(new, old):
 	"""
 	returns true if new version is greater than old version
 	"""
+	new_parts = version_parts(new)
+	old_parts = version_parts(old)
 	for i in range(4):
-		if int(new.split(".")[i]) > int(old.split(".")[i]):
+		if new_parts[i] > old_parts[i]:
 			return True
-		if int(new.split(".")[i]) < int(old.split(".")[i]):
+		if new_parts[i] < old_parts[i]:
 			return False
 	return False
 
